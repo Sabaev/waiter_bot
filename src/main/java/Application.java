@@ -5,10 +5,17 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
+import org.telegram.telegrambots.logging.BotLogger;
+
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 
 public class Application {
     public static void main(String[] args) {
         try {
+            FileHandler fileHandler = new FileHandler("logger.log",true);
+            BotLogger.registerLogger(fileHandler);
             String PROXY_HOST = "173.249.48.140";
             Integer PROXY_PORT = 8080;
             ApiContextInitializer.init();
@@ -30,7 +37,9 @@ public class Application {
             Bot bot = new Bot(BotConstants.BOT_TOKEN,BotConstants.BOT_USERNAME,botOptions);
             botsApi.registerBot(bot);
 
-        } catch (TelegramApiException e) {
+        } catch (IOException e) {
+            ///do somthing
+        }catch (TelegramApiException e) {
             e.printStackTrace();
         }
     }
