@@ -9,15 +9,19 @@ import org.telegram.telegrambots.logging.BotLogger;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;
-import java.util.logging.Handler;
 
 public class Application {
     public static void main(String[] args) {
         try {
+            // logger
             FileHandler fileHandler = new FileHandler("logger.log",true);
             BotLogger.registerLogger(fileHandler);
+
+            // proxy
             String PROXY_HOST = "173.249.48.140";
             Integer PROXY_PORT = 8080;
+
+
             ApiContextInitializer.init();
 
             // Create the TelegramBotsApi object to register your bots
@@ -38,7 +42,7 @@ public class Application {
             botsApi.registerBot(bot);
 
         } catch (IOException e) {
-            ///do somthing
+            ///do
         }catch (TelegramApiException e) {
             e.printStackTrace();
         }
